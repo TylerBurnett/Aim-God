@@ -36,6 +36,7 @@ namespace Aim_God.Modules
             }
 
             // I honestly have no idea how this works
+            // Current offset from HazeDumper : model_ambient_min = 0x58ED1C
             uint Pointer = (uint)(Module("engine.dll") + Signatures.model_ambient_min - 0x2c);
             uint CalcualtedValue = (uint)Settings.Chams.Brightness ^ Pointer;
             WriteValue(Module("engine.dll") + Signatures.model_ambient_min, CalcualtedValue);

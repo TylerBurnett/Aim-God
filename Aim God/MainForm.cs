@@ -1,7 +1,6 @@
 ﻿using Aim_God.Memory;
 using Aim_God.Modules;
 using Gma.System.MouseKeyHook;
-using MetroFramework;
 using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
@@ -29,11 +28,6 @@ namespace Aim_God
         {
             InitializeComponent();
 
-            // Gets the colours and glow handling classes for user selection
-            Visuals_FriendlyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
-            Visuals_EnemyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
-            Visuals_FriendlyRenderControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowHandler>();
-
             // Visuals Binds
             Visuals_FriendlyRenderControl.DataBindings.Add("SelectedItem", Settings.Visuals, "GlowHandler", true, DataSourceUpdateMode.OnPropertyChanged);
             Visuals_FriendlyColourControl.DataBindings.Add("SelectedItem", Settings.Visuals, "TeamTheme", true, DataSourceUpdateMode.OnPropertyChanged);
@@ -43,41 +37,55 @@ namespace Aim_God
             Visuals_AntiFlashControl.DataBindings.Add("Checked", Settings.Visuals, "AntiFlash", true, DataSourceUpdateMode.OnPropertyChanged);
             Visuals_LoopDelayControl.DataBindings.Add("Value", Settings.Visuals, "LoopDelay", true, DataSourceUpdateMode.OnPropertyChanged);
             Visuals_ChamsModeControl.DataBindings.Add("Checked", Settings.Visuals, "ChamsMode", true, DataSourceUpdateMode.OnPropertyChanged);
+            // Gets the colours and glow handling classes for user selection
+            Visuals_FriendlyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
+            Visuals_EnemyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
+            Visuals_FriendlyRenderControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowHandler>();
 
             //Trigger Bot Binds
             TriggerBot_ReactionSpeedControl.DataBindings.Add("value", Settings.TriggerBot, "ReactionSpeed", true, DataSourceUpdateMode.OnPropertyChanged);
+
+            //Chams Binds
+            Chams_FriendlyColourControl.DataBindings.Add("SelectedItem", Settings.Chams, "TeamColour", true, DataSourceUpdateMode.OnPropertyChanged);
+            Chams_EnemyColourControl.DataBindings.Add("SelectedItem", Settings.Chams, "EnemyColour", true, DataSourceUpdateMode.OnPropertyChanged);
+            Chams_ShowFriendlyTeamControl.DataBindings.Add("Checked", Settings.Chams, "ShowTeam", true, DataSourceUpdateMode.OnPropertyChanged);
+            Chams_ShowEnemyTeamControl.DataBindings.Add("Checked", Settings.Chams, "ShowEnemy", true, DataSourceUpdateMode.OnPropertyChanged);
+            // Gets the colour classes for user selection, Temporary fix
+            Chams_FriendlyColourControl.DataSource = new Base.Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal }; // Colour class is a little
+            Chams_EnemyColourControl.DataSource = new Base.Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal }; // broken atm, working on it.
         }
 
         #endregion Public Constructors
 
         #region Private Methods
 
-        private void InitializeMouseKeyHooks()
+        private void StartMouseKeyHooks()
         {
             m_GlobalHook = Hook.GlobalEvents();
-            m_GlobalHook.MouseDown += GlobalHookMouseDown;
-            m_GlobalHook.MouseUp += GlobalHookMouseUp;
-            m_GlobalHook.KeyDown += GlobalHookKeyDown;
-            m_GlobalHook.KeyUp += GlobalHookKeyUp;
+            m_GlobalHook.MouseDown += MouseDownHook;
+            m_GlobalHook.MouseUp += MouseUpHook;
+            m_GlobalHook.KeyDown += KeyDownHook;
+            m_GlobalHook.KeyUp += KeyUpHook;
 
             Hook.GlobalEvents().OnCombination(new Dictionary<Combination, Action>
             {
               {Combination.FromString("Shift+V"), () => Visuals_EnableControl_Click(null, null)},
               {Combination.FromString("Shift+T"), () => TriggerBot_EnableControl_Click(null, null)},
+              {Combination.FromString("Shift+C"), () => Chams_EnableControl_Click(null, null)},
               {Combination.FromString("Shift+A"), () => AimBot_EnableControl_Click(null, null)},
             });
         }
 
-        private void UnsubscribeKeyHooks()
+        private void RemoveMouseKeyHooks()
         {
-            m_GlobalHook.MouseDown -= GlobalHookMouseDown;
-            m_GlobalHook.MouseUp -= GlobalHookMouseUp;
-            m_GlobalHook.KeyDown -= GlobalHookKeyDown;
-            m_GlobalHook.KeyUp -= GlobalHookKeyUp;
+            m_GlobalHook.MouseDown -= MouseDownHook;
+            m_GlobalHook.MouseUp -= MouseUpHook;
+            m_GlobalHook.KeyDown -= KeyDownHook;
+            m_GlobalHook.KeyUp -= KeyUpHook;
             m_GlobalHook.Dispose();
         }
 
-        private void GlobalHookKeyDown(object sender, KeyEventArgs e)
+        private void KeyDownHook(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Q)
             {
@@ -86,7 +94,7 @@ namespace Aim_God
             }
         }
 
-        private void GlobalHookKeyUp(object sender, KeyEventArgs e)
+        private void KeyUpHook(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Q)
             {
@@ -95,12 +103,12 @@ namespace Aim_God
             }
         }
 
-        private void GlobalHookMouseDown(object sender, MouseEventArgs e)
+        private void MouseDownHook(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle) Settings.TriggerBot.Toggled = true;
         }
 
-        private void GlobalHookMouseUp(object sender, MouseEventArgs e)
+        private void MouseUpHook(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle) Settings.TriggerBot.Toggled = false;
         }
@@ -137,23 +145,10 @@ namespace Aim_God
             }
         }
 
-        /// <summary>
-        /// Fix this
-        /// </summary>
         private void Chams_EnableControl_Click(object sender, EventArgs e)
         {
-            if (Settings.Chams.Enabled == false)
-            {
-                Chams_EnableButton.Text = "Chams is enabled";
-                Settings.Chams.Enabled = true;
-                Thread ChamsThread = new Thread(() => Chams.Run());
-                ChamsThread.Start();
-            }
-            else
-            {
-                Chams_EnableButton.Text = "Chams is disabled";
-                Settings.Chams.Enabled = false;
-            }
+            Thread ChamsThread = new Thread(() => Chams.Run());
+            ChamsThread.Start();
         }
 
         private void AimBot_EnableControl_Click(object sender, EventArgs e)
@@ -172,47 +167,42 @@ namespace Aim_God
             }
         }
 
-        /// <summary>
-        /// Shuts down hack and keyhooks when Cs:Go isnt running
-        /// </summary>
-        private void WaitForGame()
-        {
-            UnsubscribeKeyHooks();
-
-            if (Settings.Visuals.Enabled) Visuals_EnableControl_Click(null, null);
-            if (Settings.TriggerBot.Enabled) TriggerBot_EnableControl_Click(null, null);
-
-            while (MemoryHandler.Initialize("csgo", WaitForGame))
-            {
-                DialogResult dr = MetroMessageBox.Show(this, "Please open CounterStrike Global Offensive before continuing.",
-                    "Cannot connect to Counter Strike", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
-
-                if (dr == DialogResult.No) Application.Exit();
-            }
-
-            InitializeMouseKeyHooks();
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //User protection for Offsets and application not open errors
-            while (MemoryHandler.Initialize("csgo", WaitForGame) == false)
-            {
-                DialogResult dr = MetroMessageBox.Show(this, "Please open CounterStrike Global Offensive before continuing.",
-                    "Cannot connect to Counter Strike", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            // This function is also used for the application close callback
+            if (m_GlobalHook != null) RemoveMouseKeyHooks();
+            if (Settings.Visuals.Enabled) Visuals_EnableControl_Click(null, null);
+            if (Settings.TriggerBot.Enabled) TriggerBot_EnableControl_Click(null, null);
+            if (Settings.AimBot.Enabled) TriggerBot_EnableControl_Click(null, null);
 
-                if (dr == DialogResult.No) Application.Exit();
+            // Got sick of having cs:go open whislt working with UI
+#if DEBUG
+            MemoryHandler.Initialize(() => MainForm_Load(null, null));
+            Offsets.LoadOffsets();
+#endif
+
+#if !DEBUG
+            while (MemoryHandler.Initialize(() => MainForm_Load(null, null)) == false)
+            {
+                DialogResult Result = MetroMessageBox.Show(this,
+                    "Please open CounterStrike Global Offensive before continuing.",
+                    "Cannot connect to Counter Strike",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+
+                if (Result == DialogResult.No) Environment.Exit(0);
             }
 
-            while (OffsetHandler.LoadOffsets() == false)
+            while (Offsets.LoadOffsets() == false)
             {
-                DialogResult dr = MetroMessageBox.Show(this, "Unable to download or access cached offsets. Please connect to internet to continue.",
-                    "Cannot access offsets", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+                DialogResult dr = MetroMessageBox.Show(this,
+                    "Unable to download or access cached offsets.",
+                    "Cannot access offsets",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
 
-                if (dr == DialogResult.No) Application.Exit();
+                if (dr == DialogResult.No) Environment.Exit(0);
             }
-
-            InitializeMouseKeyHooks();
+#endif
+            StartMouseKeyHooks();
         }
 
         #endregion Private Methods

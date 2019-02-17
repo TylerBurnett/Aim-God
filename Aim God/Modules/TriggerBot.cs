@@ -1,6 +1,4 @@
 ﻿using System.Threading;
-using static Aim_God.Memory.MemoryHandler;
-using static Aim_God.Memory.OffsetHandler;
 using static Aim_God.Modules.Base;
 
 namespace Aim_God.Modules
@@ -15,10 +13,9 @@ namespace Aim_God.Modules
 
             while (Settings.TriggerBot.Enabled)
             {
-                if (Settings.TriggerBot.Toggled)
+                if (Settings.TriggerBot.Toggled && localplayer.CrosshairID > 0)
                 {
-                    int InCrosshair = ReadValue<int>(Module("Client_Panorama") + Signatures.dwEntityList + (localplayer.CrosshairID - 1) * 16);
-                    Entity InCrossEntity = new Entity(InCrosshair);
+                    Entity InCrossEntity = new Entity(localplayer.InCrossEntity);
 
                     if (InCrossEntity.EntityID != 0 && localplayer.TeamNumber != InCrossEntity.TeamNumber)
                     {

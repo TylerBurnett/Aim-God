@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace Aim_God.Memory
 {
-    public static class OffsetHandler
+    public static class Offsets
     {
         #region Public Fields
 
@@ -14,58 +14,88 @@ namespace Aim_God.Memory
 
         #endregion Public Fields
 
+        #region Private Fields
+
+        private const string FilePath = "Offsets.json";
+        private static Uri OffsetsUrl = new Uri("https://raw.githubusercontent.com/frk1/hazedumper/master/csgo.json");
+
+        #endregion Private Fields
+
         #region Public Methods
 
+        /// <summary>
+        /// Loads the offset classes from cache or internet.
+        /// </summary>
+        /// <returns>Returns the success of loading the offsets</returns>
         public static bool LoadOffsets()
         {
-            try
+            ParentObject Parent;
+            bool DownloadSuccesful = DownloadString(OffsetsUrl, out string Data);
+
+            if (DownloadSuccesful)
             {
-                const string OffsetsUrl = "https://raw.githubusercontent.com/frk1/hazedumper/master/csgo.json";
-
-                bool Exists = File.Exists("Offsets.json");
-
-                string Data = GetOffsets(new Uri(OffsetsUrl));
-
-                if (Data != null)
+                try
                 {
-                    File.WriteAllText("Offsets.json", Data);
-                    ParentObject Parent = JsonConvert.DeserializeObject<ParentObject>(Data);
-                    Netvars = Parent.Netvars;
-                    Signatures = Parent.Signatures;
+                    Parent = JsonConvert.DeserializeObject<ParentObject>(Data);
+                    File.WriteAllText(FilePath, Data);
                 }
-                else
+                catch
                 {
-                    ParentObject Parent = JsonConvert.DeserializeObject<ParentObject>(File.ReadAllText("Offsets.json"));
-                    Netvars = Parent.Netvars;
-                    Signatures = Parent.Signatures;
+                    try
+                    {
+                        Parent = JsonConvert.DeserializeObject<ParentObject>(File.ReadAllText(FilePath));
+                    }
+                    catch
+                    {
+                        return false;
+                    }
                 }
-
-                return true;
             }
-            catch
+            else
             {
-                return false;
+                try
+                {
+                    Parent = JsonConvert.DeserializeObject<ParentObject>(File.ReadAllText(FilePath));
+                }
+                catch
+                {
+                    return false;
+                }
             }
+
+            Netvars = Parent.Netvars;
+            Signatures = Parent.Signatures;
+
+            return true;
         }
 
         #endregion Public Methods
 
         #region Private Methods
 
-        private static string GetOffsets(Uri Url)
+        /// <summary>
+        /// Downloads a string from the desired URI
+        /// </summary>
+        /// <param name="Url">The desired URL to download the string from</param>
+        /// <param name="Data"> Out's the data</param>
+        /// <returns>The success or falure of downloading the string</returns>
+        private static bool DownloadString(Uri Url, out string Data)
         {
-            string Data = null;
+            WebClient Client = new WebClient();
+
             try
             {
-                WebClient web = new WebClient();
-                Data = web.DownloadString(Url);
-                web.Dispose();
+                Data = Client.DownloadString(Url);
+
+                Client.Dispose();
+                return true;
             }
             catch
             {
+                Client.Dispose();
+                Data = null;
+                return false;
             }
-
-            return Data;
         }
 
         #endregion Private Methods
@@ -85,6 +115,8 @@ namespace Aim_God.Memory
 
         public class signatures
         {
+            #region Public Properties
+
             public int clientstate_choked_commands { get; set; }
             public int clientstate_delta_ticks { get; set; }
             public int clientstate_last_outgoing_command { get; set; }
@@ -135,10 +167,14 @@ namespace Aim_God.Memory
             public int m_pitchClassPtr { get; set; }
             public int m_yawClassPtr { get; set; }
             public int model_ambient_min { get; set; }
+
+            #endregion Public Properties
         }
 
         public class netvars
         {
+            #region Public Properties
+
             public int cs_gamerules_data { get; set; }
             public int m_ArmorValue { get; set; }
             public int m_Collision { get; set; }
@@ -210,6 +246,8 @@ namespace Aim_God.Memory
             public int m_vecVelocity { get; set; }
             public int m_vecViewOffset { get; set; }
             public int m_viewPunchAngle { get; set; }
+
+            #endregion Public Properties
         }
 
         #endregion Public Classes

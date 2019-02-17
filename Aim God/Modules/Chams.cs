@@ -1,11 +1,7 @@
-﻿using System.Threading;
-using static Aim_God.Memory.MemoryHandler;
-using static Aim_God.Memory.OffsetHandler;
+﻿using static Aim_God.Memory.MemoryHandler;
+using static Aim_God.Memory.Offsets;
 using static Aim_God.Modules.Base;
 
-/// <summary>
-/// Functional, but colours do not work TBF
-/// </summary>
 namespace Aim_God.Modules
 {
     internal class Chams
@@ -13,40 +9,38 @@ namespace Aim_God.Modules
         #region Public Methods
 
         // <summary>
-        /// Main loop for Chams, running dependant on Settings.ChamsSettings.Enabled. Must be run in seperate thread.
+        /// Colour set function for chams. m_clrRender only changes when entites are Perminantly destroyed, E.G. New game.
+        /// therefore no need to loop the call.
         /// </summary>
         public static void Run()
         {
-            
-            while (Settings.Chams.Enabled == true)
+            LocalPlayer localplayer = new LocalPlayer();
+            Entity[] PlayerList = GetEntityList();
+
+            foreach (Entity Player in PlayerList)
             {
-                LocalPlayer localplayer = new LocalPlayer();
+                Colour SelectedColour = Opauqe;
 
-                Entity[] PlayerList = GetEntityList();
-
-                foreach (Entity Player in PlayerList)
+                if (Settings.Chams.ShowTeam && Player.TeamNumber == localplayer.TeamNumber)
                 {
-                    if (Player.TeamNumber == localplayer.TeamNumber)
-                    {
-                        WriteValue(Player.EntityID + Netvars.m_clrRender, Settings.Chams.TeamColour.R);
-                        WriteValue(Player.EntityID + Netvars.m_clrRender + 0x01, Settings.Chams.TeamColour.G);
-                        WriteValue(Player.EntityID + Netvars.m_clrRender + 0x02, Settings.Chams.TeamColour.B);
-                    }
-                    else
-                    {
-                        WriteValue(Player.EntityID + Netvars.m_clrRender, Settings.Chams.EnemyColour.R);
-                        WriteValue(Player.EntityID + Netvars.m_clrRender + 0x01, Settings.Chams.EnemyColour.G);
-                        WriteValue(Player.EntityID + Netvars.m_clrRender + 0x02, Settings.Chams.EnemyColour.B);
-                    }
-
-                    int ThisPointer = Module("engine.dll") + Signatures.model_ambient_min - 0x2C;
-                    int xored = 5 ^ ThisPointer;
-                    WriteValue(Module("engine.dll") + Signatures.model_ambient_min - 0x2C, xored);
+                    SelectedColour = Settings.Chams.TeamColour;                  
                 }
-                Thread.Sleep(2000);
-            }
-        }
+                else if (Settings.Chams.ShowEnemy && Player.TeamNumber != localplayer.TeamNumber)
+                {
+                    SelectedColour = Settings.Chams.EnemyColour;
+                }
 
-        #endregion Public Methods
+                WriteValue(Player.EntityID + Netvars.m_clrRender, (byte)SelectedColour.R); // YOU MUST WRITE THESE AS BYTES
+                WriteValue(Player.EntityID + Netvars.m_clrRender + 0x01, (byte)SelectedColour.G); // Took me like 2 months to finally check the SDK
+                WriteValue(Player.EntityID + Netvars.m_clrRender + 0x02, (byte)SelectedColour.B);
+            }
+
+            // I honestly have no idea how this works
+            uint Pointer = (uint)(Module("engine.dll") + Signatures.model_ambient_min - 0x2c);
+            uint CalcualtedValue = (uint)Settings.Chams.Brightness ^ Pointer;
+            WriteValue(Module("engine.dll") + Signatures.model_ambient_min, CalcualtedValue);
+        }
     }
+
+    #endregion Public Methods
 }

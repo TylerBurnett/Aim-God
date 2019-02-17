@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using static Aim_God.Memory.MemoryHandler;
-using static Aim_God.Memory.OffsetHandler;
+using static Aim_God.Memory.Offsets;
 using static Aim_God.Modules.Base;
 
 namespace Aim_God.Modules
@@ -24,7 +23,6 @@ namespace Aim_God.Modules
             {
                 PlayerList = GetEntityList();
 
-                // ESP
                 // User specifies class to class to handle the glow.
                 Settings.Visuals.GlowHandler.Process(PlayerList, localPlayer, GlowObject);
 

@@ -18,12 +18,22 @@ namespace Aim_God.Modules
 
             while (Settings.AimBot.Enabled)
             {
-                if (Settings.AimBot.Toggled == true && localPlayer.Health > 0)
+                if (Settings.AimBot.Toggled && localPlayer.Health > 0)
                 {
+                    // Pass down entity list
                     PlayerList = GetEntityList();
-                    Settings.AimBot.Selector.Run(PlayerList, localPlayer);
 
-                    if (Settings.AimBot.ShootOnLock) LeftClick();
+                    // Run the chosen player selection algorithm
+                    Entity SelectedPlayer = Settings.AimBot.Selector.Run(PlayerList, localPlayer);
+
+                    if(SelectedPlayer != null)
+                    {
+                        // Then pass that player to the chosen cursor lock behaviour.
+                        Settings.AimBot.Lock.LookAt(localPlayer, SelectedPlayer);
+
+                        // Shoots on lock per user specification. 
+                        if (Settings.AimBot.ShootOnLock) LeftClick();
+                    }
                 }
             }
         }
@@ -32,6 +42,7 @@ namespace Aim_God.Modules
 
         #region Private Methods
 
+        // In transistion to GameMath, will be deleted
         private static Vector3 ClampAngle(Vector3 angle)
         {
             while (angle.Y > 180) angle.Y -= 360;
@@ -45,6 +56,7 @@ namespace Aim_God.Modules
             return angle;
         }
 
+        // In transistion to GameMath, will be deleted
         private static Vector3 NormalizeAngle(Vector3 angle)
         {
             while (angle.X < -180.0f) angle.X += 360.0f;
@@ -59,25 +71,32 @@ namespace Aim_God.Modules
             return angle;
         }
 
+        // In transistion to GameMath, will be deleted
         private static float AngularDistance(Vector3 To, Vector3 From)
         {
             Vector3 Difference = Vector3.Subtract(To, From);
-            return Difference.LengthSquared();
+            return Difference.Length();
         }
 
         #endregion Private Methods
 
         #region Public Classes
 
+        /// <summary>
+        /// Parent class for player selection classes
+        /// </summary>
         public abstract class AimBotSelector
         {
             #region Public Methods
 
-            public abstract void Run(Entity[] EntityList, LocalPlayer localPlayer);
+            public abstract Entity Run(Entity[] EntityList, LocalPlayer localPlayer);
 
             #endregion Public Methods
         }
 
+        /// <summary>
+        /// Parent class for Cursor Lock Behaviours
+        /// </summary>
         public abstract class CursorLockBehaviour
         {
             #region Public Methods
@@ -87,11 +106,14 @@ namespace Aim_God.Modules
             #endregion Public Methods
         }
 
+        /// <summary>
+        /// Locks on to closest player when angular distance is small enough
+        /// </summary>
         public class AssistedLock : AimBotSelector
         {
             #region Public Methods
 
-            public override void Run(Entity[] EntityList, LocalPlayer localPlayer)
+            public override Entity Run(Entity[] EntityList, LocalPlayer localPlayer)
             {
                 Dictionary<float, Entity> DistanceList = new Dictionary<float, Entity>();
 
@@ -100,7 +122,8 @@ namespace Aim_God.Modules
                     if (player.TeamNumber != localPlayer.TeamNumber && player.Health > 0)
                     {
                         Vector3 AimAngle = Math3.CalcAngle(localPlayer.VecView, player.GetBonePosition(8));
-                        DistanceList.Add(AngularDistance(localPlayer.ViewAngles, AimAngle), player);
+                        float FOV = Math3.GetFov(localPlayer.ViewAngles, AimAngle, Vector3.Distance(localPlayer.GetBonePosition(8), player.GetBonePosition(8)));
+                        DistanceList.Add(FOV, player);
                     }
 
                     if (Settings.AimBot.Toggled == false) break;
@@ -108,47 +131,44 @@ namespace Aim_God.Modules
 
                 if (DistanceList.Count > 0 && Settings.AimBot.Toggled)
                 {
-                    Entity Player = DistanceList.OrderByDescending(x => x.Key).LastOrDefault().Value;
-                    Vector3 AimAngle = Math3.CalcAngle(localPlayer.ViewAngles, Player.GetBonePosition(8));
+                    KeyValuePair<float, Entity> KeyPair = DistanceList.OrderByDescending(x => x.Key).LastOrDefault();
 
-                    if (AngularDistance(localPlayer.ViewAngles, AimAngle) < 90)
+                    if (KeyPair.Key < 20)
                     {
-                        Settings.AimBot.Lock.LookAt(localPlayer, Player);
+                        return KeyPair.Value;
                     }
                 }
+                return null;
             }
 
             #endregion Public Methods
         }
 
+        /// <summary>
+        /// Selects player after they come into contact with crosshair
+        /// </summary>
         public class SelectOnCrosshair : AimBotSelector
         {
             #region Public Methods
 
-            public override void Run(Entity[] EntityList, LocalPlayer localPlayer)
+            public override Entity Run(Entity[] EntityList, LocalPlayer localPlayer)
             {
                 Entity InCrossEntity = new Entity(localPlayer.InCrossEntity);
 
                 if (InCrossEntity.EntityID != 0 && localPlayer.TeamNumber != InCrossEntity.TeamNumber)
                 {
-                    Vector3 PlayerHead = InCrossEntity.GetBonePosition(8);
-                    Vector3 VecView = localPlayer.VecView;
-
-                    if (PlayerHead != Vector3.Zero || VecView != Vector3.Zero)
-                    {
-                        Vector3 AimAngle = Math3.CalcAngle(VecView, PlayerHead);
-                        AimAngle = NormalizeAngle(AimAngle);
-                        AimAngle = ClampAngle(AimAngle);
-
-                        Settings.AimBot.Lock.LookAt(localPlayer, InCrossEntity);
-
-                        //LeftClick();
-                        Thread.Sleep(300);
-                    }
+                    return InCrossEntity;
                 }
+
+                return null;
             }
+
+            #endregion Public Methods
         }
 
+        /// <summary>
+        ///  Smoothly locks onto selected player
+        /// </summary>
         public class SmoothLock : CursorLockBehaviour
         {
             #region Public Methods
@@ -179,8 +199,6 @@ namespace Aim_God.Modules
 
             #endregion Public Methods
         }
-
-        #endregion Public Methods
 
         #endregion Public Classes
     }

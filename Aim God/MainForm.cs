@@ -28,28 +28,16 @@ namespace Aim_God
         {
             InitializeComponent();
 
-            // Visuals Binds
-            Visuals_FriendlyRenderControl.DataBindings.Add("SelectedItem", Settings.Visuals, "GlowHandler", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_FriendlyColourControl.DataBindings.Add("SelectedItem", Settings.Visuals, "TeamTheme", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_EnemyColourControl.DataBindings.Add("SelectedItem", Settings.Visuals, "EnemyTheme", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_ShowFriendlyTeamControl.DataBindings.Add("Checked", Settings.Visuals, "ShowTeam", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_ShowEnemyTeamControl.DataBindings.Add("Checked", Settings.Visuals, "ShowEnemy", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_AntiFlashControl.DataBindings.Add("Checked", Settings.Visuals, "AntiFlash", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_LoopDelayControl.DataBindings.Add("Value", Settings.Visuals, "LoopDelay", true, DataSourceUpdateMode.OnPropertyChanged);
-            Visuals_ChamsModeControl.DataBindings.Add("Checked", Settings.Visuals, "ChamsMode", true, DataSourceUpdateMode.OnPropertyChanged);
-            // Gets the colours and glow handling classes for user selection
+            // from 20 lines to 4 lines for bindings.
+            visualsSettingsBindingSource.DataSource = Settings.Visuals;
+            chamsSettingsBindingSource.DataSource = Settings.Chams;
+            triggerBotSettingsBindingSource.DataSource = Settings.TriggerBot;
+
+            // Gets the colours and glow handling classes for user selection (Make a new system)
             Visuals_FriendlyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
             Visuals_EnemyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
             Visuals_FriendlyRenderControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowHandler>();
 
-            //Trigger Bot Binds
-            TriggerBot_ReactionSpeedControl.DataBindings.Add("value", Settings.TriggerBot, "ReactionSpeed", true, DataSourceUpdateMode.OnPropertyChanged);
-
-            //Chams Binds
-            Chams_FriendlyColourControl.DataBindings.Add("SelectedItem", Settings.Chams, "TeamColour", true, DataSourceUpdateMode.OnPropertyChanged);
-            Chams_EnemyColourControl.DataBindings.Add("SelectedItem", Settings.Chams, "EnemyColour", true, DataSourceUpdateMode.OnPropertyChanged);
-            Chams_ShowFriendlyTeamControl.DataBindings.Add("Checked", Settings.Chams, "ShowTeam", true, DataSourceUpdateMode.OnPropertyChanged);
-            Chams_ShowEnemyTeamControl.DataBindings.Add("Checked", Settings.Chams, "ShowEnemy", true, DataSourceUpdateMode.OnPropertyChanged);
             // Gets the colour classes for user selection, Temporary fix
             Chams_FriendlyColourControl.DataSource = new Base.Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal }; // Colour class is a little
             Chams_EnemyColourControl.DataSource = new Base.Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal }; // broken atm, working on it.
@@ -169,7 +157,7 @@ namespace Aim_God
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // This function is also used for the application close callback
+            // This function is also used for the application closed callback
             if (m_GlobalHook != null) RemoveMouseKeyHooks();
             if (Settings.Visuals.Enabled) Visuals_EnableControl_Click(null, null);
             if (Settings.TriggerBot.Enabled) TriggerBot_EnableControl_Click(null, null);

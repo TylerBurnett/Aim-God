@@ -26,7 +26,7 @@ namespace Aim_God
                 ShowTeam = true;
                 TeamColour = Base.Green;
                 EnemyColour = Base.Red;
-                Brightness = 10;
+                Brightness = true;
             }
 
             #endregion Public Constructors
@@ -37,14 +37,14 @@ namespace Aim_God
             public bool ShowTeam { get; set; }
             public Base.Colour EnemyColour { get; set; }
             public Base.Colour TeamColour { get; set; }
-            public int Brightness { get; set; }
+            public bool Brightness { get; set; }
 
             #endregion Public Properties
         }
 
         public class TriggerBotSettings
         {
-            #region Private Constructors
+            #region Public Constructors
 
             public TriggerBotSettings()
             {
@@ -54,26 +54,32 @@ namespace Aim_God
                 ReactionSpeed = 100;
             }
 
-            #endregion Private Constructors
+            #endregion Public Constructors
+
+            #region Private Fields
+
+            private int reactionSpeed;
+
+            #endregion Private Fields
 
             #region Public Properties
 
             public bool Enabled { get; set; }
             public bool Toggled { get; set; }
             public bool RealisticReaction { get; set; }
-            public int ReactionSpeed { get; set; }
 
-            public int ReactionTime
+            // The bound trackbar minimum is 100, so the lowest
+            //reaction time with realistic reaction is 50ms
+            public int ReactionSpeed
             {
                 get
                 {
-                    if (RealisticReaction == true)
-                    {
-                        Random Rnd = new Random();
-                        return Rnd.Next(ReactionSpeed - 50, ReactionSpeed);
-                    }
-
-                    return 0;
+                    Random Rnd = new Random();
+                    return Rnd.Next(reactionSpeed - 50, reactionSpeed);
+                }
+                set
+                {
+                    reactionSpeed = value;
                 }
             }
 

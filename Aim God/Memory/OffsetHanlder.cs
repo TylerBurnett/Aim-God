@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net;
-using Newtonsoft.Json;
 
 namespace Aim_God.Memory
 {

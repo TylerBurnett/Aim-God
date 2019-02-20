@@ -26,12 +26,12 @@ namespace Aim_God.Modules
                     // Run the chosen player selection algorithm
                     Entity SelectedPlayer = Settings.AimBot.Selector.Run(PlayerList, localPlayer);
 
-                    if(SelectedPlayer != null)
+                    if (SelectedPlayer != null)
                     {
                         // Then pass that player to the chosen cursor lock behaviour.
                         Settings.AimBot.Lock.LookAt(localPlayer, SelectedPlayer);
 
-                        // Shoots on lock per user specification. 
+                        // Shoots on lock per user specification.
                         if (Settings.AimBot.ShootOnLock) LeftClick();
                     }
                 }
@@ -121,8 +121,7 @@ namespace Aim_God.Modules
                 {
                     if (player.TeamNumber != localPlayer.TeamNumber && player.Health > 0)
                     {
-                        Vector3 AimAngle = Math3.CalcAngle(localPlayer.VecView, player.GetBonePosition(8));
-                        float FOV = Math3.GetFov(localPlayer.ViewAngles, AimAngle, Vector3.Distance(localPlayer.GetBonePosition(8), player.GetBonePosition(8)));
+                        float FOV = Math3.GetFov(localPlayer.ViewAngles, localPlayer.GetBonePosition(8), player.GetBonePosition(8));
                         DistanceList.Add(FOV, player);
                     }
 
@@ -133,7 +132,7 @@ namespace Aim_God.Modules
                 {
                     KeyValuePair<float, Entity> KeyPair = DistanceList.OrderByDescending(x => x.Key).LastOrDefault();
 
-                    if (KeyPair.Key < 20)
+                    if (KeyPair.Key < 10)
                     {
                         return KeyPair.Value;
                     }
@@ -177,12 +176,14 @@ namespace Aim_God.Modules
             {
                 while (Settings.AimBot.Toggled && Player.Health > 0)
                 {
+                    float FOV = Math3.GetFov(localPlayer.ViewAngles, localPlayer.GetBonePosition(8), Player.GetBonePosition(8));
                     Vector3 AimAngle = Math3.CalcAngle(localPlayer.VecView, Player.GetBonePosition(8));
                     AimAngle = NormalizeAngle(AimAngle);
                     AimAngle = ClampAngle(AimAngle);
                     Vector3 ViewAngles;
 
-                    if (AngularDistance(localPlayer.VecView, AimAngle) < 4)
+                    // Once it has reached its destination, speed up the movement to maintain the lock
+                    if (FOV < 8)
                     {
                         ViewAngles = Vector3.Lerp(localPlayer.ViewAngles, AimAngle, 0.6f);
                     }

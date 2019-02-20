@@ -32,13 +32,15 @@
             this.GlobalStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.ChamsTab = new MetroFramework.Controls.MetroTabPage();
+            this.Chams_ShowEnemyTeamControl = new MetroFramework.Controls.MetroToggle();
+            this.Chams_BrightnessLabel = new MetroFramework.Controls.MetroLabel();
+            this.Chams_BrightnessControl = new MetroFramework.Controls.MetroToggle();
             this.Chams_EnemyTeamColourLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_FriendlyTeamColorLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_EnemyColourControl = new MetroFramework.Controls.MetroComboBox();
             this.Chams_FriendlyColourControl = new MetroFramework.Controls.MetroComboBox();
             this.Chams_ShowEnemyTeamLabel = new MetroFramework.Controls.MetroLabel();
-            this.Chams_ShowEnemyTeamControl = new MetroFramework.Controls.MetroToggle();
             this.Chams_ShowFriendlyTeamLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_ShowFriendlyTeamControl = new MetroFramework.Controls.MetroToggle();
             this.Chams_EnableButton = new MetroFramework.Controls.MetroButton();
@@ -48,7 +50,7 @@
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.TriggerBot_RealisticReactionLabel = new MetroFramework.Controls.MetroLabel();
             this.TriggerBot_RealisticReactionControl = new MetroFramework.Controls.MetroToggle();
-            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.VisualsTab = new MetroFramework.Controls.MetroTabPage();
             this.Visuals_ChamsModeLabel = new MetroFramework.Controls.MetroLabel();
             this.Visuals_ChamsModeControl = new MetroFramework.Controls.MetroToggle();
             this.Visuals_LoopDelayControl = new MetroFramework.Controls.MetroTrackBar();
@@ -69,12 +71,18 @@
             this.TabControl = new MetroFramework.Controls.MetroTabControl();
             this.AimBotPage = new MetroFramework.Controls.MetroTabPage();
             this.AimBot_EnableControl = new MetroFramework.Controls.MetroButton();
+            this.visualsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chamsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.triggerBotSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.GlobalStyleManager)).BeginInit();
-            this.metroTabPage2.SuspendLayout();
+            this.ChamsTab.SuspendLayout();
             this.TriggerBotTab.SuspendLayout();
-            this.metroTabPage1.SuspendLayout();
+            this.VisualsTab.SuspendLayout();
             this.TabControl.SuspendLayout();
             this.AimBotPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.visualsSettingsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chamsSettingsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.triggerBotSettingsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // GlobalStyleManager
@@ -107,30 +115,76 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "God";
             // 
-            // metroTabPage2
+            // ChamsTab
             // 
-            this.metroTabPage2.Controls.Add(this.Chams_EnemyTeamColourLabel);
-            this.metroTabPage2.Controls.Add(this.Chams_FriendlyTeamColorLabel);
-            this.metroTabPage2.Controls.Add(this.Chams_EnemyColourControl);
-            this.metroTabPage2.Controls.Add(this.Chams_FriendlyColourControl);
-            this.metroTabPage2.Controls.Add(this.Chams_ShowEnemyTeamLabel);
-            this.metroTabPage2.Controls.Add(this.Chams_ShowEnemyTeamControl);
-            this.metroTabPage2.Controls.Add(this.Chams_ShowFriendlyTeamLabel);
-            this.metroTabPage2.Controls.Add(this.Chams_ShowFriendlyTeamControl);
-            this.metroTabPage2.Controls.Add(this.Chams_EnableButton);
-            this.metroTabPage2.HorizontalScrollbarBarColor = true;
-            this.metroTabPage2.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage2.HorizontalScrollbarSize = 10;
-            this.metroTabPage2.Location = new System.Drawing.Point(4, 41);
-            this.metroTabPage2.Name = "metroTabPage2";
-            this.metroTabPage2.Size = new System.Drawing.Size(746, 330);
-            this.metroTabPage2.Style = MetroFramework.MetroColorStyle.Orange;
-            this.metroTabPage2.TabIndex = 3;
-            this.metroTabPage2.Text = "Chams";
-            this.metroTabPage2.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroTabPage2.VerticalScrollbarBarColor = true;
-            this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage2.VerticalScrollbarSize = 10;
+            this.ChamsTab.Controls.Add(this.Chams_ShowEnemyTeamControl);
+            this.ChamsTab.Controls.Add(this.Chams_BrightnessLabel);
+            this.ChamsTab.Controls.Add(this.Chams_BrightnessControl);
+            this.ChamsTab.Controls.Add(this.Chams_EnemyTeamColourLabel);
+            this.ChamsTab.Controls.Add(this.Chams_FriendlyTeamColorLabel);
+            this.ChamsTab.Controls.Add(this.Chams_EnemyColourControl);
+            this.ChamsTab.Controls.Add(this.Chams_FriendlyColourControl);
+            this.ChamsTab.Controls.Add(this.Chams_ShowEnemyTeamLabel);
+            this.ChamsTab.Controls.Add(this.Chams_ShowFriendlyTeamLabel);
+            this.ChamsTab.Controls.Add(this.Chams_ShowFriendlyTeamControl);
+            this.ChamsTab.Controls.Add(this.Chams_EnableButton);
+            this.ChamsTab.HorizontalScrollbarBarColor = true;
+            this.ChamsTab.HorizontalScrollbarHighlightOnWheel = false;
+            this.ChamsTab.HorizontalScrollbarSize = 10;
+            this.ChamsTab.Location = new System.Drawing.Point(4, 41);
+            this.ChamsTab.Name = "ChamsTab";
+            this.ChamsTab.Size = new System.Drawing.Size(746, 330);
+            this.ChamsTab.Style = MetroFramework.MetroColorStyle.Orange;
+            this.ChamsTab.TabIndex = 3;
+            this.ChamsTab.Text = "Chams";
+            this.ChamsTab.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.ChamsTab.VerticalScrollbarBarColor = true;
+            this.ChamsTab.VerticalScrollbarHighlightOnWheel = false;
+            this.ChamsTab.VerticalScrollbarSize = 10;
+            // 
+            // Chams_ShowEnemyTeamControl
+            // 
+            this.Chams_ShowEnemyTeamControl.AutoSize = true;
+            this.Chams_ShowEnemyTeamControl.Checked = true;
+            this.Chams_ShowEnemyTeamControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Chams_ShowEnemyTeamControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.visualsSettingsBindingSource, "ShowEnemy", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Chams_ShowEnemyTeamControl.Location = new System.Drawing.Point(3, 125);
+            this.Chams_ShowEnemyTeamControl.Name = "Chams_ShowEnemyTeamControl";
+            this.Chams_ShowEnemyTeamControl.Size = new System.Drawing.Size(80, 17);
+            this.Chams_ShowEnemyTeamControl.Style = MetroFramework.MetroColorStyle.Orange;
+            this.Chams_ShowEnemyTeamControl.TabIndex = 23;
+            this.Chams_ShowEnemyTeamControl.Text = "On";
+            this.Chams_ShowEnemyTeamControl.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Chams_ShowEnemyTeamControl.UseSelectable = true;
+            this.Chams_ShowEnemyTeamControl.UseStyleColors = true;
+            // 
+            // Chams_BrightnessLabel
+            // 
+            this.Chams_BrightnessLabel.AutoSize = true;
+            this.Chams_BrightnessLabel.Location = new System.Drawing.Point(3, 163);
+            this.Chams_BrightnessLabel.Name = "Chams_BrightnessLabel";
+            this.Chams_BrightnessLabel.Size = new System.Drawing.Size(88, 19);
+            this.Chams_BrightnessLabel.Style = MetroFramework.MetroColorStyle.Orange;
+            this.Chams_BrightnessLabel.TabIndex = 22;
+            this.Chams_BrightnessLabel.Text = "Bright Chams";
+            this.Chams_BrightnessLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Chams_BrightnessLabel.UseStyleColors = true;
+            // 
+            // Chams_BrightnessControl
+            // 
+            this.Chams_BrightnessControl.AutoSize = true;
+            this.Chams_BrightnessControl.Checked = true;
+            this.Chams_BrightnessControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Chams_BrightnessControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.chamsSettingsBindingSource, "Brightness", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Chams_BrightnessControl.Location = new System.Drawing.Point(3, 194);
+            this.Chams_BrightnessControl.Name = "Chams_BrightnessControl";
+            this.Chams_BrightnessControl.Size = new System.Drawing.Size(80, 17);
+            this.Chams_BrightnessControl.Style = MetroFramework.MetroColorStyle.Orange;
+            this.Chams_BrightnessControl.TabIndex = 21;
+            this.Chams_BrightnessControl.Text = "On";
+            this.Chams_BrightnessControl.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Chams_BrightnessControl.UseSelectable = true;
+            this.Chams_BrightnessControl.UseStyleColors = true;
             // 
             // Chams_EnemyTeamColourLabel
             // 
@@ -158,6 +212,7 @@
             // 
             // Chams_EnemyColourControl
             // 
+            this.Chams_EnemyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.chamsSettingsBindingSource, "EnemyColour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Chams_EnemyColourControl.FormattingEnabled = true;
             this.Chams_EnemyColourControl.ItemHeight = 23;
             this.Chams_EnemyColourControl.Location = new System.Drawing.Point(304, 125);
@@ -171,7 +226,8 @@
             // 
             // Chams_FriendlyColourControl
             // 
-            this.Chams_FriendlyColourControl.DisplayMember = "Name";
+            this.Chams_FriendlyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.chamsSettingsBindingSource, "ShowTeam", true));
+            this.Chams_FriendlyColourControl.DataSource = this.chamsSettingsBindingSource;
             this.Chams_FriendlyColourControl.FormattingEnabled = true;
             this.Chams_FriendlyColourControl.ItemHeight = 23;
             this.Chams_FriendlyColourControl.Location = new System.Drawing.Point(304, 58);
@@ -195,21 +251,6 @@
             this.Chams_ShowEnemyTeamLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Chams_ShowEnemyTeamLabel.UseStyleColors = true;
             // 
-            // Chams_ShowEnemyTeamControl
-            // 
-            this.Chams_ShowEnemyTeamControl.AutoSize = true;
-            this.Chams_ShowEnemyTeamControl.Checked = true;
-            this.Chams_ShowEnemyTeamControl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Chams_ShowEnemyTeamControl.Location = new System.Drawing.Point(0, 125);
-            this.Chams_ShowEnemyTeamControl.Name = "Chams_ShowEnemyTeamControl";
-            this.Chams_ShowEnemyTeamControl.Size = new System.Drawing.Size(80, 17);
-            this.Chams_ShowEnemyTeamControl.Style = MetroFramework.MetroColorStyle.Orange;
-            this.Chams_ShowEnemyTeamControl.TabIndex = 15;
-            this.Chams_ShowEnemyTeamControl.Text = "On";
-            this.Chams_ShowEnemyTeamControl.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Chams_ShowEnemyTeamControl.UseSelectable = true;
-            this.Chams_ShowEnemyTeamControl.UseStyleColors = true;
-            // 
             // Chams_ShowFriendlyTeamLabel
             // 
             this.Chams_ShowFriendlyTeamLabel.AutoSize = true;
@@ -227,6 +268,7 @@
             this.Chams_ShowFriendlyTeamControl.AutoSize = true;
             this.Chams_ShowFriendlyTeamControl.Checked = true;
             this.Chams_ShowFriendlyTeamControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Chams_ShowFriendlyTeamControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.chamsSettingsBindingSource, "ShowTeam", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Chams_ShowFriendlyTeamControl.Location = new System.Drawing.Point(3, 58);
             this.Chams_ShowFriendlyTeamControl.Name = "Chams_ShowFriendlyTeamControl";
             this.Chams_ShowFriendlyTeamControl.Size = new System.Drawing.Size(80, 17);
@@ -276,6 +318,7 @@
             // TriggerBot_ReactionSpeedControl
             // 
             this.TriggerBot_ReactionSpeedControl.BackColor = System.Drawing.Color.Transparent;
+            this.TriggerBot_ReactionSpeedControl.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.triggerBotSettingsBindingSource, "ReactionSpeed", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.TriggerBot_ReactionSpeedControl.Location = new System.Drawing.Point(0, 140);
             this.TriggerBot_ReactionSpeedControl.Maximum = 200;
             this.TriggerBot_ReactionSpeedControl.Minimum = 100;
@@ -329,6 +372,7 @@
             this.TriggerBot_RealisticReactionControl.AutoSize = true;
             this.TriggerBot_RealisticReactionControl.Checked = true;
             this.TriggerBot_RealisticReactionControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.TriggerBot_RealisticReactionControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.triggerBotSettingsBindingSource, "RealisticReaction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.TriggerBot_RealisticReactionControl.Location = new System.Drawing.Point(3, 55);
             this.TriggerBot_RealisticReactionControl.Name = "TriggerBot_RealisticReactionControl";
             this.TriggerBot_RealisticReactionControl.Size = new System.Drawing.Size(80, 17);
@@ -339,39 +383,39 @@
             this.TriggerBot_RealisticReactionControl.UseSelectable = true;
             this.TriggerBot_RealisticReactionControl.UseStyleColors = true;
             // 
-            // metroTabPage1
+            // VisualsTab
             // 
-            this.metroTabPage1.Controls.Add(this.Visuals_ChamsModeLabel);
-            this.metroTabPage1.Controls.Add(this.Visuals_ChamsModeControl);
-            this.metroTabPage1.Controls.Add(this.Visuals_LoopDelayControl);
-            this.metroTabPage1.Controls.Add(this.Visuals_LoopDelayLabel);
-            this.metroTabPage1.Controls.Add(this.Visuals_AntiFlashLabel);
-            this.metroTabPage1.Controls.Add(this.Visuals_AntiFlashControl);
-            this.metroTabPage1.Controls.Add(this.metroLabel4);
-            this.metroTabPage1.Controls.Add(this.Visuals_FriendlyRenderControl);
-            this.metroTabPage1.Controls.Add(this.metroLabel1);
-            this.metroTabPage1.Controls.Add(this.metroLabel2);
-            this.metroTabPage1.Controls.Add(this.Visuals_EnemyColourControl);
-            this.metroTabPage1.Controls.Add(this.Visuals_FriendlyColourControl);
-            this.metroTabPage1.Controls.Add(this.Visuals_EnableControl);
-            this.metroTabPage1.Controls.Add(this.Visuals_ShowEnemyTeamLabel);
-            this.metroTabPage1.Controls.Add(this.Visuals_ShowEnemyTeamControl);
-            this.metroTabPage1.Controls.Add(this.Visuals_ShowFriendlyTeamLabel);
-            this.metroTabPage1.Controls.Add(this.Visuals_ShowFriendlyTeamControl);
-            this.metroTabPage1.HorizontalScrollbarBarColor = true;
-            this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage1.HorizontalScrollbarSize = 10;
-            this.metroTabPage1.Location = new System.Drawing.Point(4, 41);
-            this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(746, 330);
-            this.metroTabPage1.Style = MetroFramework.MetroColorStyle.Orange;
-            this.metroTabPage1.TabIndex = 1;
-            this.metroTabPage1.Text = "Visuals";
-            this.metroTabPage1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroTabPage1.UseStyleColors = true;
-            this.metroTabPage1.VerticalScrollbarBarColor = true;
-            this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage1.VerticalScrollbarSize = 10;
+            this.VisualsTab.Controls.Add(this.Visuals_ChamsModeLabel);
+            this.VisualsTab.Controls.Add(this.Visuals_ChamsModeControl);
+            this.VisualsTab.Controls.Add(this.Visuals_LoopDelayControl);
+            this.VisualsTab.Controls.Add(this.Visuals_LoopDelayLabel);
+            this.VisualsTab.Controls.Add(this.Visuals_AntiFlashLabel);
+            this.VisualsTab.Controls.Add(this.Visuals_AntiFlashControl);
+            this.VisualsTab.Controls.Add(this.metroLabel4);
+            this.VisualsTab.Controls.Add(this.Visuals_FriendlyRenderControl);
+            this.VisualsTab.Controls.Add(this.metroLabel1);
+            this.VisualsTab.Controls.Add(this.metroLabel2);
+            this.VisualsTab.Controls.Add(this.Visuals_EnemyColourControl);
+            this.VisualsTab.Controls.Add(this.Visuals_FriendlyColourControl);
+            this.VisualsTab.Controls.Add(this.Visuals_EnableControl);
+            this.VisualsTab.Controls.Add(this.Visuals_ShowEnemyTeamLabel);
+            this.VisualsTab.Controls.Add(this.Visuals_ShowEnemyTeamControl);
+            this.VisualsTab.Controls.Add(this.Visuals_ShowFriendlyTeamLabel);
+            this.VisualsTab.Controls.Add(this.Visuals_ShowFriendlyTeamControl);
+            this.VisualsTab.HorizontalScrollbarBarColor = true;
+            this.VisualsTab.HorizontalScrollbarHighlightOnWheel = false;
+            this.VisualsTab.HorizontalScrollbarSize = 10;
+            this.VisualsTab.Location = new System.Drawing.Point(4, 41);
+            this.VisualsTab.Name = "VisualsTab";
+            this.VisualsTab.Size = new System.Drawing.Size(746, 330);
+            this.VisualsTab.Style = MetroFramework.MetroColorStyle.Orange;
+            this.VisualsTab.TabIndex = 1;
+            this.VisualsTab.Text = "Visuals";
+            this.VisualsTab.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.VisualsTab.UseStyleColors = true;
+            this.VisualsTab.VerticalScrollbarBarColor = true;
+            this.VisualsTab.VerticalScrollbarHighlightOnWheel = false;
+            this.VisualsTab.VerticalScrollbarSize = 10;
             // 
             // Visuals_ChamsModeLabel
             // 
@@ -388,6 +432,7 @@
             // Visuals_ChamsModeControl
             // 
             this.Visuals_ChamsModeControl.AutoSize = true;
+            this.Visuals_ChamsModeControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.visualsSettingsBindingSource, "ChamsMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_ChamsModeControl.Location = new System.Drawing.Point(167, 54);
             this.Visuals_ChamsModeControl.Name = "Visuals_ChamsModeControl";
             this.Visuals_ChamsModeControl.Size = new System.Drawing.Size(80, 17);
@@ -402,6 +447,7 @@
             // Visuals_LoopDelayControl
             // 
             this.Visuals_LoopDelayControl.BackColor = System.Drawing.Color.Transparent;
+            this.Visuals_LoopDelayControl.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.visualsSettingsBindingSource, "LoopDelay", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_LoopDelayControl.Location = new System.Drawing.Point(304, 184);
             this.Visuals_LoopDelayControl.Maximum = 50;
             this.Visuals_LoopDelayControl.Name = "Visuals_LoopDelayControl";
@@ -409,7 +455,7 @@
             this.Visuals_LoopDelayControl.Style = MetroFramework.MetroColorStyle.Orange;
             this.Visuals_LoopDelayControl.TabIndex = 19;
             this.Visuals_LoopDelayControl.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Visuals_LoopDelayControl.Value = 30;
+            this.Visuals_LoopDelayControl.Value = 0;
             // 
             // Visuals_LoopDelayLabel
             // 
@@ -438,6 +484,7 @@
             // Visuals_AntiFlashControl
             // 
             this.Visuals_AntiFlashControl.AutoSize = true;
+            this.Visuals_AntiFlashControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.visualsSettingsBindingSource, "AntiFlash", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_AntiFlashControl.Location = new System.Drawing.Point(3, 190);
             this.Visuals_AntiFlashControl.Name = "Visuals_AntiFlashControl";
             this.Visuals_AntiFlashControl.Size = new System.Drawing.Size(80, 17);
@@ -463,6 +510,7 @@
             // 
             // Visuals_FriendlyRenderControl
             // 
+            this.Visuals_FriendlyRenderControl.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.visualsSettingsBindingSource, "GlowHandler", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_FriendlyRenderControl.FormattingEnabled = true;
             this.Visuals_FriendlyRenderControl.ItemHeight = 23;
             this.Visuals_FriendlyRenderControl.Location = new System.Drawing.Point(479, 54);
@@ -500,6 +548,7 @@
             // 
             // Visuals_EnemyColourControl
             // 
+            this.Visuals_EnemyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.visualsSettingsBindingSource, "EnemyTheme", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_EnemyColourControl.FormattingEnabled = true;
             this.Visuals_EnemyColourControl.ItemHeight = 23;
             this.Visuals_EnemyColourControl.Location = new System.Drawing.Point(304, 121);
@@ -513,6 +562,7 @@
             // 
             // Visuals_FriendlyColourControl
             // 
+            this.Visuals_FriendlyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.visualsSettingsBindingSource, "TeamTheme", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_FriendlyColourControl.DisplayMember = "Name";
             this.Visuals_FriendlyColourControl.FormattingEnabled = true;
             this.Visuals_FriendlyColourControl.ItemHeight = 23;
@@ -555,6 +605,7 @@
             this.Visuals_ShowEnemyTeamControl.AutoSize = true;
             this.Visuals_ShowEnemyTeamControl.Checked = true;
             this.Visuals_ShowEnemyTeamControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Visuals_ShowEnemyTeamControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.visualsSettingsBindingSource, "ShowEnemy", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_ShowEnemyTeamControl.Location = new System.Drawing.Point(0, 121);
             this.Visuals_ShowEnemyTeamControl.Name = "Visuals_ShowEnemyTeamControl";
             this.Visuals_ShowEnemyTeamControl.Size = new System.Drawing.Size(80, 17);
@@ -582,6 +633,7 @@
             this.Visuals_ShowFriendlyTeamControl.AutoSize = true;
             this.Visuals_ShowFriendlyTeamControl.Checked = true;
             this.Visuals_ShowFriendlyTeamControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Visuals_ShowFriendlyTeamControl.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.visualsSettingsBindingSource, "ShowTeam", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Visuals_ShowFriendlyTeamControl.Location = new System.Drawing.Point(3, 54);
             this.Visuals_ShowFriendlyTeamControl.Name = "Visuals_ShowFriendlyTeamControl";
             this.Visuals_ShowFriendlyTeamControl.Size = new System.Drawing.Size(80, 17);
@@ -595,13 +647,13 @@
             // TabControl
             // 
             this.TabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.TabControl.Controls.Add(this.metroTabPage1);
+            this.TabControl.Controls.Add(this.VisualsTab);
+            this.TabControl.Controls.Add(this.ChamsTab);
             this.TabControl.Controls.Add(this.TriggerBotTab);
-            this.TabControl.Controls.Add(this.metroTabPage2);
             this.TabControl.Controls.Add(this.AimBotPage);
             this.TabControl.Location = new System.Drawing.Point(23, 63);
             this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 2;
+            this.TabControl.SelectedIndex = 1;
             this.TabControl.Size = new System.Drawing.Size(754, 375);
             this.TabControl.Style = MetroFramework.MetroColorStyle.Orange;
             this.TabControl.TabIndex = 1;
@@ -639,6 +691,18 @@
             this.AimBot_EnableControl.UseStyleColors = true;
             this.AimBot_EnableControl.Click += new System.EventHandler(this.AimBot_EnableControl_Click);
             // 
+            // visualsSettingsBindingSource
+            // 
+            this.visualsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.VisualsSettings);
+            // 
+            // chamsSettingsBindingSource
+            // 
+            this.chamsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.ChamsSettings);
+            // 
+            // triggerBotSettingsBindingSource
+            // 
+            this.triggerBotSettingsBindingSource.DataSource = typeof(Aim_God.Settings.TriggerBotSettings);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -654,14 +718,17 @@
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GlobalStyleManager)).EndInit();
-            this.metroTabPage2.ResumeLayout(false);
-            this.metroTabPage2.PerformLayout();
+            this.ChamsTab.ResumeLayout(false);
+            this.ChamsTab.PerformLayout();
             this.TriggerBotTab.ResumeLayout(false);
             this.TriggerBotTab.PerformLayout();
-            this.metroTabPage1.ResumeLayout(false);
-            this.metroTabPage1.PerformLayout();
+            this.VisualsTab.ResumeLayout(false);
+            this.VisualsTab.PerformLayout();
             this.TabControl.ResumeLayout(false);
             this.AimBotPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.visualsSettingsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chamsSettingsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.triggerBotSettingsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -672,7 +739,7 @@
         private System.Windows.Forms.Label label2;
         private MetroFramework.Components.MetroStyleManager GlobalStyleManager;
         private MetroFramework.Controls.MetroTabControl TabControl;
-        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private MetroFramework.Controls.MetroTabPage VisualsTab;
         private MetroFramework.Controls.MetroTrackBar Visuals_LoopDelayControl;
         private MetroFramework.Controls.MetroLabel Visuals_LoopDelayLabel;
         private MetroFramework.Controls.MetroLabel Visuals_AntiFlashLabel;
@@ -694,7 +761,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroLabel TriggerBot_RealisticReactionLabel;
         private MetroFramework.Controls.MetroToggle TriggerBot_RealisticReactionControl;
-        private MetroFramework.Controls.MetroTabPage metroTabPage2;
+        private MetroFramework.Controls.MetroTabPage ChamsTab;
         private MetroFramework.Controls.MetroButton Chams_EnableButton;
         private MetroFramework.Controls.MetroLabel Visuals_ChamsModeLabel;
         private MetroFramework.Controls.MetroToggle Visuals_ChamsModeControl;
@@ -705,9 +772,14 @@
         private MetroFramework.Controls.MetroComboBox Chams_EnemyColourControl;
         private MetroFramework.Controls.MetroComboBox Chams_FriendlyColourControl;
         private MetroFramework.Controls.MetroLabel Chams_ShowEnemyTeamLabel;
-        private MetroFramework.Controls.MetroToggle Chams_ShowEnemyTeamControl;
         private MetroFramework.Controls.MetroLabel Chams_ShowFriendlyTeamLabel;
         private MetroFramework.Controls.MetroToggle Chams_ShowFriendlyTeamControl;
+        private MetroFramework.Controls.MetroLabel Chams_BrightnessLabel;
+        private MetroFramework.Controls.MetroToggle Chams_BrightnessControl;
+        private MetroFramework.Controls.MetroToggle Chams_ShowEnemyTeamControl;
+        private System.Windows.Forms.BindingSource visualsSettingsBindingSource;
+        private System.Windows.Forms.BindingSource chamsSettingsBindingSource;
+        private System.Windows.Forms.BindingSource triggerBotSettingsBindingSource;
     }
 }
 

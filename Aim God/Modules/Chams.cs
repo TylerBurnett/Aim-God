@@ -23,23 +23,29 @@ namespace Aim_God.Modules
 
                 if (Settings.Chams.ShowTeam && Player.TeamNumber == localplayer.TeamNumber)
                 {
-                    SelectedColour = Settings.Chams.TeamColour;                  
+                    SelectedColour = Settings.Chams.TeamColour;
                 }
                 else if (Settings.Chams.ShowEnemy && Player.TeamNumber != localplayer.TeamNumber)
                 {
                     SelectedColour = Settings.Chams.EnemyColour;
                 }
 
-                WriteValue(Player.EntityID + Netvars.m_clrRender, (byte)SelectedColour.R); // YOU MUST WRITE THESE AS BYTES
-                WriteValue(Player.EntityID + Netvars.m_clrRender + 0x01, (byte)SelectedColour.G); // Took me like 2 months to finally check the SDK
+                WriteValue(Player.EntityID + Netvars.m_clrRender, (byte)SelectedColour.R);
+                WriteValue(Player.EntityID + Netvars.m_clrRender + 0x01, (byte)SelectedColour.G);
                 WriteValue(Player.EntityID + Netvars.m_clrRender + 0x02, (byte)SelectedColour.B);
             }
 
-            // I honestly have no idea how this works
-            // Current offset from HazeDumper : model_ambient_min = 0x58ED1C
-            uint Pointer = (uint)(Module("engine.dll") + Signatures.model_ambient_min - 0x2c);
-            uint CalcualtedValue = (uint)Settings.Chams.Brightness ^ Pointer;
-            WriteValue(Module("engine.dll") + Signatures.model_ambient_min, CalcualtedValue);
+            // My method of adding ambient min. It usually requires a XOR calculation, but i dont know the current pointer for the XOR Calc
+            // so instead i read the values after i changed them via in game console (r_ModelAmbientMin)
+            // Should only be a temporary fix till i find the real pointer.
+            if (Settings.Chams.Brightness)
+            {
+                WriteValue(Module("engine.dll") + Signatures.model_ambient_min, 1185344752);
+            }
+            else
+            {
+                WriteValue(Module("engine.dll") + Signatures.model_ambient_min, 117894384);
+            }
         }
     }
 

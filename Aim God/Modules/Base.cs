@@ -9,23 +9,22 @@ namespace Aim_God.Modules
 {
     public class Base
     {
+
         #region Public Fields
 
-        // For colour data binding
-        
-        public static Colour Red = new Colour(255, 0, 0, 255, "Red");
+        public static Colour Red = new Colour(255, 0, 0, 1, "Red");
 
-        public static Colour Green = new Colour(0, 255, 0, 255, "Green");
+        public static Colour Green = new Colour(0, 255, 0, 1, "Green");
 
-        public static Colour Blue = new Colour(0, 0, 255, 255, "Blue");
+        public static Colour Blue = new Colour(0, 0, 255, 1, "Blue");
 
-        public static Colour Purple = new Colour(255, 0, 255, 255, "Purple");
+        public static Colour Purple = new Colour(255, 0, 255, 1, "Purple");
 
-        public static Colour Yellow = new Colour(255, 255, 0, 255, "Yellow");
+        public static Colour Yellow = new Colour(255, 255, 0, 1, "Yellow");
 
-        public static Colour Teal = new Colour(0, 255, 255, 255, "Teal");
+        public static Colour Teal = new Colour(0, 255, 255, 1, "Teal");
 
-        public static Colour Opauqe = new Colour(1, 1, 1, 1, "Opauqe");
+        public static Colour Opauqe = new Colour(-1, 16777215, 65535, 1, "Opauqe");
 
         #endregion Public Fields
 
@@ -66,24 +65,23 @@ namespace Aim_God.Modules
         #region Public Classes
 
         /// <summary>
+        /// WIP, Bones are dynamic for entities depending on the map. Find a workaround.
+        /// </summary>
+        public static class Bone
+        {
+            #region Public Fields
+
+            public const int Head = 8;
+
+            #endregion Public Fields
+        }
+
+        /// <summary>
         /// Colour Parent
         /// </summary>
         public class Colour
         {
-            public override string ToString()
-            {
-                return Name;
-            }
-
             #region Public Constructors
-
-            public Colour(float R, float G, float B, float A)
-            {
-                this.R = R;
-                this.G = G;
-                this.B = B;
-                this.A = A;
-            }
 
             public Colour(float R, float G, float B, float A, string Name)
             {
@@ -99,21 +97,29 @@ namespace Aim_God.Modules
             #region Public Properties
 
             public float R { get; set; }
+
             public float G { get; set; }
+
             public float B { get; set; }
+
             public float A { get; set; }
-            private string Name { get; set; }
 
             #endregion Public Properties
-        }
 
-        /// <summary>
-        /// WIP, Bones are dynamic for entities depending on the map. Find a workaround.
-        /// </summary>
-        public static class Bone
-        {
-            public const int Head = 8;
+            #region Private Properties
 
+            private string Name { get; set; }
+
+            #endregion Private Properties
+
+            #region Public Methods
+
+            public override string ToString()
+            {
+                return Name;
+            }
+
+            #endregion Public Methods
         }
 
         /// <summary>
@@ -202,7 +208,7 @@ namespace Aim_God.Modules
 
             public int InCrossEntity
             {
-                get => MemoryHandler.ReadValue<int>(MemoryHandler.Module("Client_Panorama") + Signatures.dwEntityList + (CrosshairID - 1) * 16);
+                get => MemoryHandler.ReadValue<int>(MemoryHandler.Module("client_panorama.dll") + Signatures.dwEntityList + (CrosshairID - 1) * 16);
             }
 
             public Vector3 AimPunch

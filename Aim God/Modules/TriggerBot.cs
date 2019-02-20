@@ -19,7 +19,7 @@ namespace Aim_God.Modules
 
                     if (InCrossEntity.EntityID != 0 && localplayer.TeamNumber != InCrossEntity.TeamNumber)
                     {
-                        Thread.Sleep(Settings.TriggerBot.ReactionTime);
+                        Thread.Sleep(Settings.TriggerBot.ReactionSpeed);
                         LeftClick();
                     }
                 }

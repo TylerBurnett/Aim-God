@@ -44,9 +44,11 @@ namespace Aim_God.Modules
         /// <summary>
         /// Data strucutre extension of Base.Colour, Used for the variables stored inside the glow object in memory
         /// </summary>
-        /// 
+        ///
         public class GlowStruct
         {
+            #region Public Constructors
+
             public GlowStruct()
             {
                 R = 0;
@@ -67,12 +69,20 @@ namespace Aim_God.Modules
                 RWUO = false;
             }
 
+            #endregion Public Constructors
+
+            #region Public Fields
+
             public float R; //0x4
             public float G; //0x8
             public float B; //0xC
             public float A; //0x10
             public bool RWO;      //0x24
-            public bool RWUO;    //0x25
+            public bool RWUO;
+
+            #endregion Public Fields
+
+            //0x25
         }
 
         /// <summary>
@@ -139,14 +149,14 @@ namespace Aim_God.Modules
                         {
                             SelectedColour = Settings.Visuals.EnemyTheme.Calculate(Player);
                         }
-                    }        
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0x4), SelectedColour.R);
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0x8), SelectedColour.G);
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0xC), SelectedColour.B);
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0x10), SelectedColour.A);
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0x24), SelectedColour.RWO);
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0x25), SelectedColour.RWUO);
-                        WriteValue(GlowObject + (PlayerGI * 0x38 + 0x2C), Settings.Visuals.ChamsMode);
+                    }
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0x4), SelectedColour.R);
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0x8), SelectedColour.G);
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0xC), SelectedColour.B);
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0x10), SelectedColour.A);
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0x24), SelectedColour.RWO);
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0x25), SelectedColour.RWUO);
+                    WriteValue(GlowObject + (PlayerGI * 0x38 + 0x2C), Settings.Visuals.ChamsMode);
                 }
             }
 
@@ -166,7 +176,7 @@ namespace Aim_God.Modules
                 {
                     int PlayerGI = Player.GlowIndex;
 
-                    GlowStruct SelectedColour = null;
+                    GlowStruct SelectedColour = new GlowStruct();
 
                     if (Player.TeamNumber == localplayer.TeamNumber && Settings.Visuals.ShowTeam)
                     {

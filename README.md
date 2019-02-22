@@ -1,5 +1,11 @@
 # Aim-God
-A C# exploit for CS:GO
+An external C# exploit for CS:GO
+
+## The external approach
+With most game hacks there's essentially two methods of achieving cheating, External and internal.
+This hack was created in c# and so it's quite assumeable that this hack is external.
+
+The basic approach to doing this is using race conditions to beat the game to changing a variable through memory. Accessing these variables seems easy in theory, but understanding process memory requires a decent knowledge of computer science. And therefore creates alot of unexplainable issues that will pop up like weeds in a garden.
 
 ## THIS IS NOT A DOWNLOADABLE HACK
 I created this repo for educational purposes. Therefore I have excluded Memory.cs to avoid compilation.

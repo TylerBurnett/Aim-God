@@ -81,8 +81,6 @@ namespace Aim_God.Modules
             public bool RWUO;
 
             #endregion Public Fields
-
-            //0x25
         }
 
         /// <summary>
@@ -105,7 +103,7 @@ namespace Aim_God.Modules
         /// <summary>
         /// Method class for glow handling (Glow handling is calculated on a team basis)
         /// </summary>
-        public abstract class GlowHandler
+        public abstract class GlowSelector
         {
             #region Public Methods
 
@@ -122,7 +120,7 @@ namespace Aim_God.Modules
         /// <summary>
         /// Glows when users crosshair is over an enemy team member In Red (Colour is not currently changeable.
         /// </summary>
-        public class GlowInCrosshair : GlowHandler
+        public class GlowInCrosshair : GlowSelector
         {
             #region Public Methods
 
@@ -166,7 +164,7 @@ namespace Aim_God.Modules
         /// <summary>
         /// Static glow, child of Glow Handler
         /// </summary>
-        public class StaticGlow : GlowHandler
+        public class StaticGlow : GlowSelector
         {
             #region Public Methods
 

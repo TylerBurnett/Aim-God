@@ -33,24 +33,34 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ChamsTab = new MetroFramework.Controls.MetroTabPage();
+            this.Chams_KeyBind = new MetroFramework.Controls.MetroLabel();
+            this.bindsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Chams_KeybindLabel = new MetroFramework.Controls.MetroLabel();
+            this.Chams_EnemyColourControl = new MetroFramework.Controls.MetroComboBox();
+            this.chamsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Chams_ShowEnemyTeamControl = new MetroFramework.Controls.MetroToggle();
+            this.visualsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Chams_BrightnessLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_BrightnessControl = new MetroFramework.Controls.MetroToggle();
             this.Chams_EnemyTeamColourLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_FriendlyTeamColorLabel = new MetroFramework.Controls.MetroLabel();
-            this.Chams_EnemyColourControl = new MetroFramework.Controls.MetroComboBox();
             this.Chams_FriendlyColourControl = new MetroFramework.Controls.MetroComboBox();
             this.Chams_ShowEnemyTeamLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_ShowFriendlyTeamLabel = new MetroFramework.Controls.MetroLabel();
             this.Chams_ShowFriendlyTeamControl = new MetroFramework.Controls.MetroToggle();
             this.Chams_EnableButton = new MetroFramework.Controls.MetroButton();
             this.TriggerBotTab = new MetroFramework.Controls.MetroTabPage();
+            this.TriggerBot_KeyBind = new MetroFramework.Controls.MetroLabel();
+            this.TriggerBot_KeyBindLabel = new MetroFramework.Controls.MetroLabel();
             this.TriggerBot_ReactionSpeedControl = new MetroFramework.Controls.MetroTrackBar();
+            this.triggerBotSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TriggerBot_EnableControl = new MetroFramework.Controls.MetroButton();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.TriggerBot_RealisticReactionLabel = new MetroFramework.Controls.MetroLabel();
             this.TriggerBot_RealisticReactionControl = new MetroFramework.Controls.MetroToggle();
             this.VisualsTab = new MetroFramework.Controls.MetroTabPage();
+            this.Visuals_KeyBind = new MetroFramework.Controls.MetroLabel();
+            this.Visuals_KeyBindLabel = new MetroFramework.Controls.MetroLabel();
             this.Visuals_ChamsModeLabel = new MetroFramework.Controls.MetroLabel();
             this.Visuals_ChamsModeControl = new MetroFramework.Controls.MetroToggle();
             this.Visuals_LoopDelayControl = new MetroFramework.Controls.MetroTrackBar();
@@ -70,19 +80,19 @@
             this.Visuals_ShowFriendlyTeamControl = new MetroFramework.Controls.MetroToggle();
             this.TabControl = new MetroFramework.Controls.MetroTabControl();
             this.AimBotPage = new MetroFramework.Controls.MetroTabPage();
+            this.AimBot_KeyBind = new MetroFramework.Controls.MetroLabel();
+            this.AimBot_KeyBindLabel = new MetroFramework.Controls.MetroLabel();
             this.AimBot_EnableControl = new MetroFramework.Controls.MetroButton();
-            this.visualsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.chamsSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.triggerBotSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.GlobalStyleManager)).BeginInit();
             this.ChamsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindsSettingsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chamsSettingsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.visualsSettingsBindingSource)).BeginInit();
             this.TriggerBotTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.triggerBotSettingsBindingSource)).BeginInit();
             this.VisualsTab.SuspendLayout();
             this.TabControl.SuspendLayout();
             this.AimBotPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.visualsSettingsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chamsSettingsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.triggerBotSettingsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // GlobalStyleManager
@@ -117,12 +127,14 @@
             // 
             // ChamsTab
             // 
+            this.ChamsTab.Controls.Add(this.Chams_KeyBind);
+            this.ChamsTab.Controls.Add(this.Chams_KeybindLabel);
+            this.ChamsTab.Controls.Add(this.Chams_EnemyColourControl);
             this.ChamsTab.Controls.Add(this.Chams_ShowEnemyTeamControl);
             this.ChamsTab.Controls.Add(this.Chams_BrightnessLabel);
             this.ChamsTab.Controls.Add(this.Chams_BrightnessControl);
             this.ChamsTab.Controls.Add(this.Chams_EnemyTeamColourLabel);
             this.ChamsTab.Controls.Add(this.Chams_FriendlyTeamColorLabel);
-            this.ChamsTab.Controls.Add(this.Chams_EnemyColourControl);
             this.ChamsTab.Controls.Add(this.Chams_FriendlyColourControl);
             this.ChamsTab.Controls.Add(this.Chams_ShowEnemyTeamLabel);
             this.ChamsTab.Controls.Add(this.Chams_ShowFriendlyTeamLabel);
@@ -142,6 +154,50 @@
             this.ChamsTab.VerticalScrollbarHighlightOnWheel = false;
             this.ChamsTab.VerticalScrollbarSize = 10;
             // 
+            // Chams_KeyBind
+            // 
+            this.Chams_KeyBind.AutoSize = true;
+            this.Chams_KeyBind.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindsSettingsBindingSource, "Chams", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Chams_KeyBind.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.Chams_KeyBind.Location = new System.Drawing.Point(666, 25);
+            this.Chams_KeyBind.Name = "Chams_KeyBind";
+            this.Chams_KeyBind.Size = new System.Drawing.Size(43, 25);
+            this.Chams_KeyBind.TabIndex = 26;
+            this.Chams_KeyBind.Text = "Null";
+            this.Chams_KeyBind.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // bindsSettingsBindingSource
+            // 
+            this.bindsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.BindsSettings);
+            // 
+            // Chams_KeybindLabel
+            // 
+            this.Chams_KeybindLabel.AutoSize = true;
+            this.Chams_KeybindLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.Chams_KeybindLabel.Location = new System.Drawing.Point(666, 0);
+            this.Chams_KeybindLabel.Name = "Chams_KeybindLabel";
+            this.Chams_KeybindLabel.Size = new System.Drawing.Size(77, 25);
+            this.Chams_KeybindLabel.TabIndex = 25;
+            this.Chams_KeybindLabel.Text = "Key bind";
+            this.Chams_KeybindLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // Chams_EnemyColourControl
+            // 
+            this.Chams_EnemyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.chamsSettingsBindingSource, "EnemyColour", true));
+            this.Chams_EnemyColourControl.FormattingEnabled = true;
+            this.Chams_EnemyColourControl.ItemHeight = 23;
+            this.Chams_EnemyColourControl.Location = new System.Drawing.Point(304, 125);
+            this.Chams_EnemyColourControl.Name = "Chams_EnemyColourControl";
+            this.Chams_EnemyColourControl.Size = new System.Drawing.Size(128, 29);
+            this.Chams_EnemyColourControl.Style = MetroFramework.MetroColorStyle.Orange;
+            this.Chams_EnemyColourControl.TabIndex = 24;
+            this.Chams_EnemyColourControl.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Chams_EnemyColourControl.UseSelectable = true;
+            // 
+            // chamsSettingsBindingSource
+            // 
+            this.chamsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.ChamsSettings);
+            // 
             // Chams_ShowEnemyTeamControl
             // 
             this.Chams_ShowEnemyTeamControl.AutoSize = true;
@@ -157,6 +213,10 @@
             this.Chams_ShowEnemyTeamControl.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Chams_ShowEnemyTeamControl.UseSelectable = true;
             this.Chams_ShowEnemyTeamControl.UseStyleColors = true;
+            // 
+            // visualsSettingsBindingSource
+            // 
+            this.visualsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.VisualsSettings);
             // 
             // Chams_BrightnessLabel
             // 
@@ -210,23 +270,9 @@
             this.Chams_FriendlyTeamColorLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Chams_FriendlyTeamColorLabel.UseStyleColors = true;
             // 
-            // Chams_EnemyColourControl
-            // 
-            this.Chams_EnemyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.chamsSettingsBindingSource, "EnemyColour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Chams_EnemyColourControl.FormattingEnabled = true;
-            this.Chams_EnemyColourControl.ItemHeight = 23;
-            this.Chams_EnemyColourControl.Location = new System.Drawing.Point(304, 125);
-            this.Chams_EnemyColourControl.Name = "Chams_EnemyColourControl";
-            this.Chams_EnemyColourControl.Size = new System.Drawing.Size(127, 29);
-            this.Chams_EnemyColourControl.Style = MetroFramework.MetroColorStyle.Orange;
-            this.Chams_EnemyColourControl.TabIndex = 18;
-            this.Chams_EnemyColourControl.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Chams_EnemyColourControl.UseSelectable = true;
-            this.Chams_EnemyColourControl.UseStyleColors = true;
-            // 
             // Chams_FriendlyColourControl
             // 
-            this.Chams_FriendlyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.chamsSettingsBindingSource, "ShowTeam", true));
+            this.Chams_FriendlyColourControl.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.chamsSettingsBindingSource, "TeamColour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Chams_FriendlyColourControl.DataSource = this.chamsSettingsBindingSource;
             this.Chams_FriendlyColourControl.FormattingEnabled = true;
             this.Chams_FriendlyColourControl.ItemHeight = 23;
@@ -294,6 +340,8 @@
             // 
             // TriggerBotTab
             // 
+            this.TriggerBotTab.Controls.Add(this.TriggerBot_KeyBind);
+            this.TriggerBotTab.Controls.Add(this.TriggerBot_KeyBindLabel);
             this.TriggerBotTab.Controls.Add(this.TriggerBot_ReactionSpeedControl);
             this.TriggerBotTab.Controls.Add(this.TriggerBot_EnableControl);
             this.TriggerBotTab.Controls.Add(this.metroLabel3);
@@ -315,6 +363,29 @@
             this.TriggerBotTab.VerticalScrollbarHighlightOnWheel = false;
             this.TriggerBotTab.VerticalScrollbarSize = 10;
             // 
+            // TriggerBot_KeyBind
+            // 
+            this.TriggerBot_KeyBind.AutoSize = true;
+            this.TriggerBot_KeyBind.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindsSettingsBindingSource, "TriggerBot", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TriggerBot_KeyBind.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.TriggerBot_KeyBind.Location = new System.Drawing.Point(666, 25);
+            this.TriggerBot_KeyBind.Name = "TriggerBot_KeyBind";
+            this.TriggerBot_KeyBind.Size = new System.Drawing.Size(43, 25);
+            this.TriggerBot_KeyBind.TabIndex = 30;
+            this.TriggerBot_KeyBind.Text = "Null";
+            this.TriggerBot_KeyBind.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // TriggerBot_KeyBindLabel
+            // 
+            this.TriggerBot_KeyBindLabel.AutoSize = true;
+            this.TriggerBot_KeyBindLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.TriggerBot_KeyBindLabel.Location = new System.Drawing.Point(666, 0);
+            this.TriggerBot_KeyBindLabel.Name = "TriggerBot_KeyBindLabel";
+            this.TriggerBot_KeyBindLabel.Size = new System.Drawing.Size(77, 25);
+            this.TriggerBot_KeyBindLabel.TabIndex = 29;
+            this.TriggerBot_KeyBindLabel.Text = "Key bind";
+            this.TriggerBot_KeyBindLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // TriggerBot_ReactionSpeedControl
             // 
             this.TriggerBot_ReactionSpeedControl.BackColor = System.Drawing.Color.Transparent;
@@ -329,6 +400,10 @@
             this.TriggerBot_ReactionSpeedControl.Tag = "";
             this.TriggerBot_ReactionSpeedControl.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.TriggerBot_ReactionSpeedControl.Value = 100;
+            // 
+            // triggerBotSettingsBindingSource
+            // 
+            this.triggerBotSettingsBindingSource.DataSource = typeof(Aim_God.Settings.TriggerBotSettings);
             // 
             // TriggerBot_EnableControl
             // 
@@ -385,6 +460,8 @@
             // 
             // VisualsTab
             // 
+            this.VisualsTab.Controls.Add(this.Visuals_KeyBind);
+            this.VisualsTab.Controls.Add(this.Visuals_KeyBindLabel);
             this.VisualsTab.Controls.Add(this.Visuals_ChamsModeLabel);
             this.VisualsTab.Controls.Add(this.Visuals_ChamsModeControl);
             this.VisualsTab.Controls.Add(this.Visuals_LoopDelayControl);
@@ -416,6 +493,29 @@
             this.VisualsTab.VerticalScrollbarBarColor = true;
             this.VisualsTab.VerticalScrollbarHighlightOnWheel = false;
             this.VisualsTab.VerticalScrollbarSize = 10;
+            // 
+            // Visuals_KeyBind
+            // 
+            this.Visuals_KeyBind.AutoSize = true;
+            this.Visuals_KeyBind.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindsSettingsBindingSource, "Visuals", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Visuals_KeyBind.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.Visuals_KeyBind.Location = new System.Drawing.Point(666, 25);
+            this.Visuals_KeyBind.Name = "Visuals_KeyBind";
+            this.Visuals_KeyBind.Size = new System.Drawing.Size(43, 25);
+            this.Visuals_KeyBind.TabIndex = 28;
+            this.Visuals_KeyBind.Text = "Null";
+            this.Visuals_KeyBind.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // Visuals_KeyBindLabel
+            // 
+            this.Visuals_KeyBindLabel.AutoSize = true;
+            this.Visuals_KeyBindLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.Visuals_KeyBindLabel.Location = new System.Drawing.Point(666, 0);
+            this.Visuals_KeyBindLabel.Name = "Visuals_KeyBindLabel";
+            this.Visuals_KeyBindLabel.Size = new System.Drawing.Size(77, 25);
+            this.Visuals_KeyBindLabel.TabIndex = 27;
+            this.Visuals_KeyBindLabel.Text = "Key bind";
+            this.Visuals_KeyBindLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // Visuals_ChamsModeLabel
             // 
@@ -653,7 +753,7 @@
             this.TabControl.Controls.Add(this.AimBotPage);
             this.TabControl.Location = new System.Drawing.Point(23, 63);
             this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 1;
+            this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(754, 375);
             this.TabControl.Style = MetroFramework.MetroColorStyle.Orange;
             this.TabControl.TabIndex = 1;
@@ -663,6 +763,8 @@
             // 
             // AimBotPage
             // 
+            this.AimBotPage.Controls.Add(this.AimBot_KeyBind);
+            this.AimBotPage.Controls.Add(this.AimBot_KeyBindLabel);
             this.AimBotPage.Controls.Add(this.AimBot_EnableControl);
             this.AimBotPage.HorizontalScrollbarBarColor = true;
             this.AimBotPage.HorizontalScrollbarHighlightOnWheel = false;
@@ -678,6 +780,29 @@
             this.AimBotPage.VerticalScrollbarHighlightOnWheel = false;
             this.AimBotPage.VerticalScrollbarSize = 10;
             // 
+            // AimBot_KeyBind
+            // 
+            this.AimBot_KeyBind.AutoSize = true;
+            this.AimBot_KeyBind.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindsSettingsBindingSource, "AimBot", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.AimBot_KeyBind.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.AimBot_KeyBind.Location = new System.Drawing.Point(666, 25);
+            this.AimBot_KeyBind.Name = "AimBot_KeyBind";
+            this.AimBot_KeyBind.Size = new System.Drawing.Size(43, 25);
+            this.AimBot_KeyBind.TabIndex = 30;
+            this.AimBot_KeyBind.Text = "Null";
+            this.AimBot_KeyBind.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // AimBot_KeyBindLabel
+            // 
+            this.AimBot_KeyBindLabel.AutoSize = true;
+            this.AimBot_KeyBindLabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.AimBot_KeyBindLabel.Location = new System.Drawing.Point(666, 0);
+            this.AimBot_KeyBindLabel.Name = "AimBot_KeyBindLabel";
+            this.AimBot_KeyBindLabel.Size = new System.Drawing.Size(77, 25);
+            this.AimBot_KeyBindLabel.TabIndex = 29;
+            this.AimBot_KeyBindLabel.Text = "Key bind";
+            this.AimBot_KeyBindLabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // AimBot_EnableControl
             // 
             this.AimBot_EnableControl.Location = new System.Drawing.Point(3, 289);
@@ -690,18 +815,6 @@
             this.AimBot_EnableControl.UseSelectable = true;
             this.AimBot_EnableControl.UseStyleColors = true;
             this.AimBot_EnableControl.Click += new System.EventHandler(this.AimBot_EnableControl_Click);
-            // 
-            // visualsSettingsBindingSource
-            // 
-            this.visualsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.VisualsSettings);
-            // 
-            // chamsSettingsBindingSource
-            // 
-            this.chamsSettingsBindingSource.DataSource = typeof(Aim_God.Settings.ChamsSettings);
-            // 
-            // triggerBotSettingsBindingSource
-            // 
-            this.triggerBotSettingsBindingSource.DataSource = typeof(Aim_God.Settings.TriggerBotSettings);
             // 
             // MainForm
             // 
@@ -716,19 +829,21 @@
             this.Resizable = false;
             this.Style = MetroFramework.MetroColorStyle.Orange;
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.GlobalStyleManager)).EndInit();
             this.ChamsTab.ResumeLayout(false);
             this.ChamsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindsSettingsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chamsSettingsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.visualsSettingsBindingSource)).EndInit();
             this.TriggerBotTab.ResumeLayout(false);
             this.TriggerBotTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.triggerBotSettingsBindingSource)).EndInit();
             this.VisualsTab.ResumeLayout(false);
             this.VisualsTab.PerformLayout();
             this.TabControl.ResumeLayout(false);
             this.AimBotPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.visualsSettingsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chamsSettingsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.triggerBotSettingsBindingSource)).EndInit();
+            this.AimBotPage.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -769,7 +884,6 @@
         private MetroFramework.Controls.MetroButton AimBot_EnableControl;
         private MetroFramework.Controls.MetroLabel Chams_EnemyTeamColourLabel;
         private MetroFramework.Controls.MetroLabel Chams_FriendlyTeamColorLabel;
-        private MetroFramework.Controls.MetroComboBox Chams_EnemyColourControl;
         private MetroFramework.Controls.MetroComboBox Chams_FriendlyColourControl;
         private MetroFramework.Controls.MetroLabel Chams_ShowEnemyTeamLabel;
         private MetroFramework.Controls.MetroLabel Chams_ShowFriendlyTeamLabel;
@@ -780,6 +894,16 @@
         private System.Windows.Forms.BindingSource visualsSettingsBindingSource;
         private System.Windows.Forms.BindingSource chamsSettingsBindingSource;
         private System.Windows.Forms.BindingSource triggerBotSettingsBindingSource;
+        private MetroFramework.Controls.MetroComboBox Chams_EnemyColourControl;
+        private MetroFramework.Controls.MetroLabel Chams_KeybindLabel;
+        private MetroFramework.Controls.MetroLabel Chams_KeyBind;
+        private System.Windows.Forms.BindingSource bindsSettingsBindingSource;
+        private MetroFramework.Controls.MetroLabel Visuals_KeyBind;
+        private MetroFramework.Controls.MetroLabel Visuals_KeyBindLabel;
+        private MetroFramework.Controls.MetroLabel TriggerBot_KeyBind;
+        private MetroFramework.Controls.MetroLabel TriggerBot_KeyBindLabel;
+        private MetroFramework.Controls.MetroLabel AimBot_KeyBind;
+        private MetroFramework.Controls.MetroLabel AimBot_KeyBindLabel;
     }
 }
 

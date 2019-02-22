@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -131,6 +131,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Settings.AimBotSettings.datasource" />
+    <None Include="Properties\DataSources\Settings.BindsSettings.datasource" />
     <None Include="Properties\DataSources\Settings.ChamsSettings.datasource" />
     <None Include="Properties\DataSources\Settings.TriggerBotSettings.datasource" />
     <None Include="Properties\DataSources\Settings.VisualsSettings.datasource" />

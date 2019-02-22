@@ -4,7 +4,7 @@ using static Aim_God.Modules.Base;
 
 namespace Aim_God.Modules
 {
-    internal class Chams
+    public class Chams
     {
         #region Public Methods
 

@@ -28,19 +28,18 @@ namespace Aim_God
         {
             InitializeComponent();
 
-            // from 20 lines to 4 lines for bindings.
             visualsSettingsBindingSource.DataSource = Settings.Visuals;
             chamsSettingsBindingSource.DataSource = Settings.Chams;
             triggerBotSettingsBindingSource.DataSource = Settings.TriggerBot;
+            bindsSettingsBindingSource.DataSource = Settings.Binds;
 
             // Gets the colours and glow handling classes for user selection (Make a new system)
             Visuals_FriendlyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
             Visuals_EnemyColourControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowEffect>();
-            Visuals_FriendlyRenderControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowHandler>();
+            Visuals_FriendlyRenderControl.DataSource = ReflectionHelper.GetAllNonabstractClassesOf<Visuals.GlowSelector>();
 
-            // Gets the colour classes for user selection, Temporary fix
-            Chams_FriendlyColourControl.DataSource = new Base.Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal }; // Colour class is a little
-            Chams_EnemyColourControl.DataSource = new Base.Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal }; // broken atm, working on it.
+            Chams_FriendlyColourControl.DataSource = new Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal };
+            Chams_EnemyColourControl.DataSource = new Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal };
         }
 
         #endregion Public Constructors
@@ -64,7 +63,7 @@ namespace Aim_God
             });
         }
 
-        private void RemoveMouseKeyHooks()
+        private void StopMouseKeyHooks()
         {
             m_GlobalHook.MouseDown -= MouseDownHook;
             m_GlobalHook.MouseUp -= MouseUpHook;
@@ -155,17 +154,17 @@ namespace Aim_God
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
             // This function is also used for the application closed callback
-            if (m_GlobalHook != null) RemoveMouseKeyHooks();
+            if (m_GlobalHook != null) StopMouseKeyHooks();
             if (Settings.Visuals.Enabled) Visuals_EnableControl_Click(null, null);
             if (Settings.TriggerBot.Enabled) TriggerBot_EnableControl_Click(null, null);
             if (Settings.AimBot.Enabled) TriggerBot_EnableControl_Click(null, null);
 
             // Got sick of having cs:go open whislt working with UI
 #if DEBUG
-            MemoryHandler.Initialize(() => MainForm_Load(null, null));
+            MemoryHandler.Initialize(() => MainForm_Shown(null, null));
             Offsets.LoadOffsets();
 #endif
 

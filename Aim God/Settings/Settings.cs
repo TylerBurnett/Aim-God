@@ -11,6 +11,9 @@ namespace Aim_God
         public static VisualsSettings Visuals = new VisualsSettings();
         public static ChamsSettings Chams = new ChamsSettings();
         public static AimBotSettings AimBot = new AimBotSettings();
+        public static BindsSettings Binds = new BindsSettings();
+
+        public static Colour[] Colours = new Colour[] { Base.Red, Base.Green, Base.Blue, Base.Purple, Base.Yellow, Base.Teal };
 
         #endregion Public Fields
 
@@ -35,8 +38,8 @@ namespace Aim_God
 
             public bool ShowEnemy { get; set; }
             public bool ShowTeam { get; set; }
-            public Base.Colour EnemyColour { get; set; }
-            public Base.Colour TeamColour { get; set; }
+            public Colour EnemyColour { get; set; }
+            public Colour TeamColour { get; set; }
             public bool Brightness { get; set; }
 
             #endregion Public Properties
@@ -115,7 +118,7 @@ namespace Aim_God
             public bool ShowEnemy { get; set; }
             public Visuals.GlowEffect TeamTheme { get; set; }
             public bool ShowTeam { get; set; }
-            public Visuals.GlowHandler GlowHandler { get; set; }
+            public Visuals.GlowSelector GlowHandler { get; set; }
 
             #endregion Public Properties
         }
@@ -146,6 +149,22 @@ namespace Aim_God
             public bool ShootOnLock { get; set; }
 
             #endregion Public Properties
+        }
+
+        public class BindsSettings
+        {
+            public BindsSettings()
+            {
+                Visuals = "Shift + V";
+                Chams = "Shift + C";
+                TriggerBot = "Shift + T";
+                AimBot = "Shift + A";
+            }
+
+            public string Visuals { get; set; }
+            public string Chams { get; set; }
+            public string TriggerBot { get; set; }
+            public string AimBot { get; set; }
         }
 
         #endregion Public Classes

@@ -71,13 +71,6 @@ namespace Aim_God.Modules
             return angle;
         }
 
-        // In transistion to GameMath, will be deleted
-        private static float AngularDistance(Vector3 To, Vector3 From)
-        {
-            Vector3 Difference = Vector3.Subtract(To, From);
-            return Difference.Length();
-        }
-
         #endregion Private Methods
 
         #region Public Classes
